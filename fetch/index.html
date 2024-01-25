@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>spinner1</title>
+  </head>
+
+  <body>
+    <div id="result"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", fetchData);
+
+      async function fetchData() {
+        await fetch("abia.php")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Handle the retrieved data
+            console.log("Data from PHP:", data);
+
+            // Display the data in the HTML
+            document.getElementById("result").innerHTML = `
+                    <p>#: ${data.id}</p>
+                    <p>Value: ${data.value}</p>
+                    <p>Created on: ${data.created_at}</p>
+                    <p>Updated on: ${data.updated_at}</p>
+
+                `;
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      }
+      fetchData();
+
+      function letsSpin() {
+        var x = 1024; //min value
+        var y = 9999; //max value
+
+        var deg = Math.floor(Math.random() * (x - y)) + y;
+
+        document.getElementById("wheel").style.transform =
+          "rotate(" + deg + "deg)";
+      }
+    </script>
+  </body>
+</html>
