@@ -125,3 +125,15 @@ span p {
   font-size: 20px;
   background: #ffe605;
 }
+
+.arrow {
+  z-index: -10000 !important;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent; /* Left side */
+  border-right: 10px solid transparent; /* Right side */
+  border-bottom: 20px solid black; /* Bottom side */
+  position: absolute;
+  top: -30%;
+  right: 35%;
+}
