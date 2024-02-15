@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>timer</title>
+    <style>
+      .clock {
+        font-family: Arial, sans-serif;
+        font-size: 2rem;
+        text-align: center;
+        margin-top: 20vh;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>Timer</div>
+    <div class="clock" id="clock"></div>
+
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const hours = now.getHours();
+
+        const minutes = now.getMinutes();
+
+        const seconds = now.getSeconds();
+        const time = hours + ":" + minutes + ":" + seconds;
+        document.getElementById("clock").innerHTML = time;
+      }
+
+      // Update the clock every second
+      setInterval(updateClock, 1000);
+
+      // Initial call to display the clock immediately
+      //updateClock();
+    </script>
+  </body>
+</html>

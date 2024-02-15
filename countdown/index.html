@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown Timer</title>
+    <style>
+      .timer {
+        font-family: Arial, sans-serif;
+        font-size: 2rem;
+        text-align: center;
+        margin-top: 20vh;
+      }
+      .button {
+        display: none;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="timer" id="timer"></div>
+    <button class="button" id="endButton" onclick="endTimer()">
+      Timer is Over
+    </button>
+
+    <script>
+      //const endTime = Date.now() + 6 * 60 * 60 * 1000; // 6 hours in milliseconds
+      const endTime = Date.now() + 10 * 1000; // 10 seconds in milliseconds
+
+      function updateTimer() {
+        const now = Date.now();
+        const remainingTime = endTime - now;
+
+        if (remainingTime <= 0) {
+          clearInterval(timerInterval);
+          document.getElementById("timer").innerHTML = "00:00:00";
+          document.getElementById("endButton").style.display = "block";
+        } else {
+          const hours = Math.floor(remainingTime / (1000 * 60 * 60));
+          const minutes = Math.floor(
+            (remainingTime % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+          document.getElementById("timer").innerHTML =
+            formatTime(hours) +
+            ":" +
+            formatTime(minutes) +
+            ":" +
+            formatTime(seconds);
+        }
+      }
+
+      function formatTime(time) {
+        if (time < 10) {
+          return "0" + time;
+        } else {
+          return time;
+        }
+      }
+
+      const timerInterval = setInterval(updateTimer, 1000);
+
+      function endTimer() {
+        alert("Timer is over!");
+      }
+    </script>
+  </body>
+</html>

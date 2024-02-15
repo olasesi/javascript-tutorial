@@ -21,7 +21,7 @@
             <p>😍</p>
           </span>
           <span class="span4">
-            <p>😎</p>
+            <p id="add0"></p>
           </span>
 
           <span class="span5">
@@ -50,6 +50,7 @@
     <script>
       let values;
 
+      document.getElementById("add0").innerHTML = "<p>Value: 0";
       async function fetchData() {
         const response = await fetch("abia.php");
 
@@ -75,10 +76,8 @@
           "rotate(" + 4 * 360 * values + "deg)";
 
         setTimeout(function () {
-          document.getElementById(
-            "result"
-          ).innerHTML = `<p>Value: ${values}</p>`;
-        }, 5000);
+          document.getElementById("add0").innerHTML = `<p>Value: ${values}</p>`;
+        }, 3000);
       }
     </script>
   </body>
