@@ -24,45 +24,74 @@
     </button>
 
     <script>
+      let endTime;
+
+      async function fetchData() {
+        const response = await fetch("abia.php");
+
+        if (!response.ok) {
+          console.log(response.status);
+        }
+
+        const data = await response.json();
+
+        console.log("Data from PHP:", data);
+
+        endTime = data.end_time;
+        setInterval(updateTimer, 1000);
+      }
+      fetchData();
+
       //const endTime = Date.now() + 6 * 60 * 60 * 1000; // 6 hours in milliseconds
-      const endTime = Date.now() + 10 * 1000; // 10 seconds in milliseconds
+      //const endTime = Math.floor(Date.now() / 1000) + 10; // 10 seconds in milliseconds
 
       function updateTimer() {
-        const now = Date.now();
+        const now = Math.floor(Date.now() / 1000);
         const remainingTime = endTime - now;
 
         if (remainingTime <= 0) {
-          clearInterval(timerInterval);
-          document.getElementById("timer").innerHTML = "00:00:00";
           document.getElementById("endButton").style.display = "block";
         } else {
-          const hours = Math.floor(remainingTime / (1000 * 60 * 60));
-          const minutes = Math.floor(
-            (remainingTime % (1000 * 60 * 60)) / (1000 * 60)
-          );
-          const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+          const hours = Math.floor(remainingTime / 3600);
+          const minutes = Math.floor((remainingTime % 3600) / 60);
+          const seconds = remainingTime % 60;
+
+          // Format time values to ensure they have leading zeros if necessary
+          // const formattedHours = ("0" + hours).slice(-2);
+          // const formattedMinutes = ("0" + minutes).slice(-2);
+          // const formattedSeconds = ("0" + seconds).slice(-2);
+
+          // document.getElementById("timer").innerHTML =
+          //   formattedHours + ":" + formattedMinutes + ":" + formattedSeconds;
+
           document.getElementById("timer").innerHTML =
-            formatTime(hours) +
-            ":" +
-            formatTime(minutes) +
-            ":" +
-            formatTime(seconds);
+            hours + ":" + minutes + ":" + seconds;
         }
       }
 
-      function formatTime(time) {
-        if (time < 10) {
-          return "0" + time;
-        } else {
-          return time;
-        }
-      }
+      // function formatTime(time) {
+      //   if (time < 10) {
+      //     return "0" + time;
+      //   } else {
+      //     return time;
+      //   }
+      // }
 
-      const timerInterval = setInterval(updateTimer, 1000);
+      // const timerInterval = setInterval(updateTimer, 1000);
+      //setTimeout(updateTimer, 4000);
+      //setInterval(updateTimer, 1000);
 
       function endTimer() {
         alert("Timer is over!");
       }
+
+      // const now = Date.now();
+      // const remainingTime = endTime - now;
+      // const initialDelay = remainingTime % 1000;
+
+      // setTimeout(updateTimer, initialDelay);
+
+      // const timerInterval = setInterval(updateTimer, 1000);
     </script>
   </body>
 </html>
